@@ -1,0 +1,8 @@
+/* error : variable not array */
+let 
+	var d:=0
+in
+	d[3]
+end
+
+

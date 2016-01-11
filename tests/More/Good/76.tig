@@ -1,0 +1,12 @@
+let type forest = { hd: tree, tl: forest }
+	type tree = { node: int, children: forest }
+in
+	tree {  node = 1,
+			children = forest { hd = tree { node = 2,
+											children = nil },
+								tl = forest { hd = tree { node = 3,
+														  children = nil },
+											  tl = nil }
+		 					  }
+		 }
+end

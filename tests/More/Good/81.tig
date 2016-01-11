@@ -1,0 +1,22 @@
+/* I implement multiple array!!! */
+let
+	type arr = array of int
+	type arr1 = array of arr
+	var a := arr1[2 * 2] of arr[10] of 888
+	type rec = { num : int }
+	type arr2 = array of rec
+	var b := arr2[5] of rec{ num = -1 }
+	function printNum(num : int) = (printi(num);print("\n"))
+in
+	printNum(a[3][9]);
+	for i := 0 to 3 do 
+		for j := 0 to 9 do 
+			a[i][j] := i * 10 + j;
+	for i := 0 to 3 do 
+		for j := 0 to 9 do 
+			printNum(a[i][j]);
+	print("\n");
+	b[0].num := -2;
+	printNum(b[0].num);
+	printNum(b[1].num)
+end

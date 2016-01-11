@@ -1,0 +1,6 @@
+/* for */
+let
+	var x:int := 0
+in 
+	(for i:=0 to 100 do x:=x+1)
+end

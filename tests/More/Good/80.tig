@@ -1,0 +1,8 @@
+/* More than 4 arguments */
+let
+	function manyArguments(a : int, b : int, c : int, d : int, e : int, f : int) = 
+		(printi(a);printi(b);printi(c);printi(d);printi(e);printi(f))
+in
+	manyArguments(0, 1, 2, 3, 4, 5);
+	manyArguments(0, 1, 2, 3, 4, 5)
+end

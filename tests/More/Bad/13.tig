@@ -1,0 +1,8 @@
+/* error - procedure returns a value */
+let
+	function p() = 5
+in
+	p()
+end
+
+

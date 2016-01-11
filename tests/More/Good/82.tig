@@ -1,0 +1,22 @@
+/* Nested funcions */
+let
+	function a() = 
+		let 
+			var i := 0
+			function b() = 
+				let 
+					function c() = 
+						let 
+							function d() = (i := 5; printi(i))
+						in
+							d()
+						end
+				in
+					c()
+				end
+		in
+			b()
+		end
+in
+	a()
+end

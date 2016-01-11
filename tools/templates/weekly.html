@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ repo.upper() }} 进度周报</title>
+
+    <style type="text/css">
+        /* External CSS */
+        {% include "./print.css" %}
+
+        /* Custom CSS */
+        a.button {
+            border: 3px solid rgba(0,0,0,.07);
+            padding: 4px 20px;
+            margin-right: 20px;
+            border-radius: 20px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            color: #999;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" class="yue">
+        <h1>{{ repo.upper() }} 进度周报</h1>
+
+        <p>创建者：{{ user }}</p>
+        <hr>
+
+        {% for commit in commits %}
+        <div class="commit">
+            <p>{{ commit.commit.message }}</p>
+            <p>提交者：
+                <a href="{{ commit.committer.html_url }}" target="_blank">
+                    {{ commit.commit.committer.name }}
+                </a>
+            </p>
+            <p>提交时间：{{ commit.commit.committer.date }}</p>
+            <a class="button" href="{{ commit.html_url }}" target="_blank">浏览</a>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>

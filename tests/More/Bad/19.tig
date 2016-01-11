@@ -1,0 +1,11 @@
+/* error: Tiger does not use struct equiv for records, either */
+let
+	type a = {first:int}
+	type b = {first:int}
+	var x:= a {first=6}
+	var y:= b {first=6}
+in
+	x := y
+end
+
+

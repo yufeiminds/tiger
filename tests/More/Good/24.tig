@@ -1,0 +1,19 @@
+/* int, bool, string passed by value */
+let
+	var a:int := 4
+	var b:int := 100
+	function swap(x:int, y:int) =
+		let var temp := 0
+		in
+			temp := x;
+			x := y;
+			y := temp
+		end
+in
+	printi(a);	/* 4 */
+	swap(a,b);	/* doesn't affect a or b */
+	printi(a);	/* 4 */
+	printi(b)	/*100*/ 
+end
+
+

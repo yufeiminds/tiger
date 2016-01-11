@@ -1,0 +1,105 @@
+let
+	var i0 := 50
+	var i1 := 49
+	var i2 := 48
+	var i3 := 47
+	var i4 := 46
+	var i5 := 45
+	var i6 := 44
+	var i7 := 43
+	var i8 := 42
+	var i9 := 41
+	var i10 := 40
+	var i11 := 39
+	var i12 := 38
+	var i13 := 37
+	var i14 := 36
+	var i15 := 35
+	var i16 := 34
+	var i17 := 33
+	var i18 := 32
+	var i19 := 31
+	var i20 := 30
+	var i21 := 29
+	var i22 := 28
+	var i23 := 27
+	var i24 := 26
+	var i25 := 25
+	var i26 := 24
+	var i27 := 23
+	var i28 := 22
+	var i29 := 21
+	var i30 := 20
+	var i31 := 19
+	var i32 := 18
+	var i33 := 17
+	var i34 := 16
+	var i35 := 15
+	var i36 := 14
+	var i37 := 13
+	var i38 := 12
+	var i39 := 11
+	var i40 := 10
+	var i41 := 9
+	var i42 := 8
+	var i43 := 7
+	var i44 := 6
+	var i45 := 5
+	var i46 := 4
+	var i47 := 3
+	var i48 := 2
+	var i49 := 1
+	function printNum(num : int) = (printi(num);print("\n"))
+in
+	printNum(i0);
+	printNum(i1);
+	printNum(i2);
+	printNum(i3);
+	printNum(i4);
+	printNum(i5);
+	printNum(i6);
+	printNum(i7);
+	printNum(i8);
+	printNum(i9);
+	printNum(i10);
+	printNum(i11);
+	printNum(i12);
+	printNum(i13);
+	printNum(i14);
+	printNum(i15);
+	printNum(i16);
+	printNum(i17);
+	printNum(i18);
+	printNum(i19);
+	printNum(i20);
+	printNum(i21);
+	printNum(i22);
+	printNum(i23);
+	printNum(i24);
+	printNum(i25);
+	printNum(i26);
+	printNum(i27);
+	printNum(i28);
+	printNum(i29);
+	printNum(i30);
+	printNum(i31);
+	printNum(i32);
+	printNum(i33);
+	printNum(i34);
+	printNum(i35);
+	printNum(i36);
+	printNum(i37);
+	printNum(i38);
+	printNum(i39);
+	printNum(i40);
+	printNum(i41);
+	printNum(i42);
+	printNum(i43);
+	printNum(i44);
+	printNum(i45);
+	printNum(i46);
+	printNum(i47);
+	printNum(i48);
+	printNum(i49);
+	print("Finished!")
+end

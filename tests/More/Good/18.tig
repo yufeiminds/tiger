@@ -1,0 +1,14 @@
+/* nested while loop */
+let
+	var x:=0
+	var y:=0
+	var z:=0
+in
+	while x < 5 do
+		(while y < 10 do
+			(z:=z+1;
+			 y:= y + 1);
+		 y:=0;
+		 x:= x+1);
+	printi(z)  /* should be 50 */
+end

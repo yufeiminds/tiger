@@ -1,0 +1,22 @@
+/* read a string from the terminal, print its reverse image,
+ * standard library: getchar (), substring (s,fst,len), size (s)
+ */
+
+let
+	function reverse (s : string) : string =
+		if size (s) <= 1 then s	
+		else
+			concat (reverse (substring (s, 1, size (s) - 1)),
+					substring (s, 0, 1))
+
+	/* read string from terminal until newline seen */
+	function getstring () : string =
+		let var c := getchar() /* c is string of length 1 */
+		in
+			if c = "\n" then ""
+						else concat (c, getstring ())
+		end
+in
+	print (reverse (getstring ()));
+	print ("\n")
+end

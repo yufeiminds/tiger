@@ -1,0 +1,12 @@
+/* same for arrays */
+let
+	type a = array of string
+	var x:= a [5] of "hello"
+	function mutate(x:a) = x[0] := "get lost"
+in
+	print(x[0]);	/* hello */
+	mutate(x);
+	print(x[0])	/*get lost*/
+end
+
+

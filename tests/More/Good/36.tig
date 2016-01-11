@@ -1,0 +1,8 @@
+/* locals hide globals */
+let
+	var a:=0
+
+	function f(a:int):int = a 
+in
+ 	printi(f(1))	/* should be 1*/
+end

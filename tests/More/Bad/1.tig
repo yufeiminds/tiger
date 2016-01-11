@@ -1,0 +1,2 @@
+/* Type mismatch */
+if true then 5 else "hello"

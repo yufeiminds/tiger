@@ -1,0 +1,4 @@
+/* error- for high index not an int */
+for i:=10 to " " do print("/n")
+
+

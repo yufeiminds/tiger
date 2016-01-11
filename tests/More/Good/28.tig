@@ -1,0 +1,16 @@
+/* arrays assigned by reference*/
+let
+	type intarray = array of int
+
+	var x:= intarray [5+2] of 0
+	var y:= intarray [3-1] of 8
+in
+	printi(x[4]);	/* 0 */
+	printi(y[0]);	/* 8 */
+	y := x;
+	printi(y[0]);	/* 0 */
+	y[4] := 42;
+	printi(x[4])	/* 42 */
+end
+
+

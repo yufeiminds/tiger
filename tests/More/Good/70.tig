@@ -1,0 +1,17 @@
+/* arrays,
+ * array access,
+ * arrays have reference semantics
+ */
+
+
+let type strings = array of string
+
+	var a := strings [10] of "foo"
+	var b := a
+in
+	print (a[0]);
+	print (a[9]);
+	b[5] := "bar";
+	print (a[5]);
+	print ("\n")
+end

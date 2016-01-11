@@ -1,0 +1,23 @@
+let
+  var x := 1
+  function f():int =
+    let
+      var y := 2
+      function g():int =
+        let
+	  var z := 3
+          function h():int =
+            let
+              var a:=10
+            in
+              x+y+z+a
+            end
+        in
+          h()
+        end
+    in
+      g()
+    end
+in
+  printi(f())
+end
