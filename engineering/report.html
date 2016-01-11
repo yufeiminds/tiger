@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>自动报告 | Tiger</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    
+    <link rel="prev" href="../engineering/docs.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.2" data-chapter-title="自动报告" data-filepath="engineering/report.md" data-basepath=".." data-revision="Mon Jan 11 2016 14:17:12 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="academic/Summary.html">
+            
+            <span><b>1.</b> 学术相关</span>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="engineering/Summary.html">
+            
+            <span><b>2.</b> 工程相关</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="engineering/docs.html">
+            
+                
+                    <a href="../engineering/docs.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        自动文档
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="engineering/report.html">
+            
+                
+                    <a href="../engineering/report.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        自动报告
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Tiger</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="&#x5468;&#x62A5;&#x811A;&#x672C;">&#x5468;&#x62A5;&#x811A;&#x672C;</h1>
+<p>&#x5728;&#x6839;&#x76EE;&#x5F55;&#x7684; <code>tools</code> &#x5B50;&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x6709;&#x4E00;&#x4E2A; <code>report.py</code>&#xFF0C;&#x7528;&#x4E8E;&#x8C03;&#x7528; Github API&#xFF0C;&#x751F;&#x6210;&#x6BCF;&#x5468;&#x7684;&#x4EE3;&#x7801;&#x63D0;&#x4EA4;&#x8BB0;&#x5F55;&#x62A5;&#x544A;&#x3002;</p>
+<pre><code class="lang-python">python report.py <span class="hljs-comment"># &#x751F;&#x6210; HTML &#x683C;&#x5F0F;&#x62A5;&#x544A;</span>
+python report.py -f pdf <span class="hljs-comment"># &#x751F;&#x6210; PDF &#x683C;&#x5F0F;&#x62A5;&#x544A;</span>
+</code></pre>
+<p>&#x4E0A;&#x8FF0;&#x547D;&#x4EE4;&#x4F1A;&#x5728; build &#x76EE;&#x5F55;&#x4E0B;&#x751F;&#x6210;&#x4EE5;&#x5F53;&#x524D;&#x65E5;&#x671F;&#x4E3A;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x6587;&#x6863;&#x6587;&#x4EF6;&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x683C;&#x5F0F;&#x4E3A; <code>%F</code> &#x6216; <code>%Y-%m-%d</code>&#xFF0C;&#x6BD4;&#x5982;</p>
+<ul>
+<li><code>2016-1-10.html</code></li>
+<li><code>2016-1-10.pdf</code></li>
+</ul>
+<hr>
+<p><strong>TODOS</strong></p>
+<ol>
+<li>&#x5B9A;&#x65F6;&#x53D1;&#x9001;</li>
+</ol>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../engineering/docs.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 自动文档"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "Tiger",
+  "version": "0.0.1",
+  "description": "Tiger Compiler",
+  "main": "SUMMARY.md",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yufeiminds/tiger.git"
+  },
+  "keywords": [
+    "tiger",
+    "compiler"
+  ],
+  "dependencies": [
+    "gitbook-plugin-mathjax",
+    "gitbook-plugin-todo"
+  ],
+  "author": "Yufei Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yufeiminds/tiger/issues"
+  },
+  "homepage": "https://yufeiminds.github.io/tiger"
+}
