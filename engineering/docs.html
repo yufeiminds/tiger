@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="../gitbook/style.css">
     
         
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-katex/katex.min.css">
+        
+    
+        
         <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
         
     
@@ -48,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="2.1" data-chapter-title="自动文档" data-filepath="engineering/docs.md" data-basepath=".." data-revision="Mon Jan 11 2016 14:17:12 GMT+0800 (CST)">
+    <div class="book" data-level="2.1" data-chapter-title="自动文档" data-filepath="engineering/docs.md" data-basepath=".." data-revision="Thu Jan 14 2016 20:27:00 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -126,6 +130,34 @@
             
         </li>
     
+        <li class="chapter " data-level="3" data-path="appendix/Summary.html">
+            
+            <span><b>3.</b> 附录</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="appendix/tiger.html">
+            
+                
+                    <a href="../appendix/tiger.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Tiger 语言参考
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
 
             
@@ -167,8 +199,25 @@
 <li><a href="http://wanqingwong.com/gitbook-zh/" target="_blank">Gitbook &#x7684;&#x4E00;&#x7BC7;&#x4E2D;&#x6587;&#x6307;&#x5357;</a></li>
 <li><a href="https://kingofamani.gitbooks.io/git-teach/content/chapter_6_gitbook/chapter_6_gitbookgitbook2.html" target="_blank">&#x5173;&#x4E8E; Git &#x7684;&#x4E00;&#x7BC7;&#x4E2D;&#x6587;&#x6307;&#x5357;</a></li>
 </ul>
-<h2 id="&#x53D1;&#x5E03;&#x6587;&#x6863;">&#x53D1;&#x5E03;&#x6587;&#x6863;</h2>
+<h2 id="&#x7F16;&#x8F91;&#x6587;&#x6863;">&#x7F16;&#x8F91;&#x6587;&#x6863;</h2>
 <p>Tiger &#x6839;&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x6709;&#x4E00;&#x4E2A; <code>docs</code> &#x76EE;&#x5F55;&#xFF0C;&#x6309;&#x7167;&#x7EA6;&#x5B9A;&#x653E;&#x7F6E;&#x6587;&#x6863;&#xFF08;Markdown&#x683C;&#x5F0F;&#x7684;&#x6587;&#x4EF6;&#xFF09;&#x3002;</p>
+<p>&#x5B89;&#x88C5;&#x597D; <a href="https://www.gitbook.com/" title="Gitbook website" target="_blank">Gitbook</a> &#x540E;&#xFF0C;&#x5728; <code>docs</code> &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x8FD0;&#x884C;</p>
+<pre><code class="lang-shell">gitbook serve
+</code></pre>
+<p>&#x5373;&#x53EF;&#x542F;&#x52A8;&#x672C;&#x5730;&#x8C03;&#x8BD5;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6B64;&#x65F6;&#x518D;&#x7528;&#x4F60;&#x559C;&#x6B22;&#x7684;&#x7F16;&#x8F91;&#x5668;&#x7F16;&#x8F91;Markdown&#x6587;&#x6863;&#x5373;&#x53EF;&#x770B;&#x5230;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x6587;&#x6863;&#x7684;&#x53D8;&#x5316;&#x3002;</p>
+<h2 id="&#x53D1;&#x5E03;&#x6587;&#x6863;">&#x53D1;&#x5E03;&#x6587;&#x6863;</h2>
+<p>&#x6587;&#x6863;&#x5B58;&#x50A8;&#x5728; <a href="https://pages.github.com/" title="Github pages" target="_blank">gh-pages</a> &#x4E0A;&#xFF0C;&#x4F7F;&#x7528; <a href="https://github.com/davisp/ghp-import" title="GHP import tools" target="_blank">ghp-import</a> &#x5DE5;&#x5177;&#x53D1;&#x5E03;&#x3002;</p>
+<p>&#x5B89;&#x88C5;&#x597D; <a href="https://github.com/davisp/ghp-import" title="GHP import tools" target="_blank">ghp-import</a> &#xFF0C;&#x5728; <code>docs</code> &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x8FD0;&#x884C;</p>
+<pre><code class="lang-shell">gitbook build
+</code></pre>
+<p>&#x547D;&#x4EE4;&#x751F;&#x6210;&#x6587;&#x6863;&#x76EE;&#x5F55;&#xFF08;&#x9ED8;&#x8BA4;&#x662F; <code>_book</code>&#xFF09;&#x540E;&#xFF0C;&#x6267;&#x884C;</p>
+<pre><code class="lang-shell">ghp-import _book -p -n -b gh-pages
+</code></pre>
+<p>&#x53D1;&#x5E03;&#x6587;&#x6863;&#x7F51;&#x7AD9;&#x5230; <a href="https://yufeiminds.github.io/tiger" target="_blank">&#x8FD9;&#x91CC;</a></p>
+<p><strong>TODOS</strong></p>
+<ol>
+<li>&#x7528;CI&#x7684;&#x811A;&#x672C;&#x8DD1;&#x81EA;&#x52A8;&#x6587;&#x6863;</li>
+</ol>
 
                     
                     </section>
@@ -206,13 +255,9 @@
     <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
     
 
-    
-    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
-    
-
 <script>
 require(["gitbook"], function(gitbook) {
-    var config = {"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    var config = {"fontSettings":{"theme":"white","family":"sans","size":3},"katex":{},"todo":{},"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
     gitbook.start(config);
 });
 </script>
