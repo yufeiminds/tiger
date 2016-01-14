@@ -18,28 +18,38 @@
             color: #999;
             text-decoration: none;
         }
+
+        .entry-title {
+            text-align: center;
+        }
+
+        .commit {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div id="wrapper" class="yue">
-        <h1>{{ repo.upper() }} 进度周报</h1>
-
-        <p>创建者：{{ user }}</p>
-        <hr>
-
-        {% for commit in commits %}
-        <div class="commit">
-            <p>{{ commit.commit.message }}</p>
-            <p>提交者：
-                <a href="{{ commit.committer.html_url }}" target="_blank">
-                    {{ commit.commit.committer.name }}
-                </a>
-            </p>
-            <p>提交时间：{{ commit.commit.committer.date }}</p>
-            <a class="button" href="{{ commit.html_url }}" target="_blank">浏览</a>
+        <div class="entry-title">
+            <h1>{{ repo.upper() }} 进度周报</h1>
+            <p>创建者：{{ user }}</p>
+            <hr>
         </div>
-        <hr>
-        {% endfor %}
+        <div class="entry-content">
+            {% for commit in commits %}
+            <div class="commit">
+                <p>{{ commit.commit.message | markdown }}</p>
+                <p>提交者：
+                    <a href="{{ commit.committer.html_url }}" target="_blank">
+                        {{ commit.commit.committer.name }}
+                    </a>
+                </p>
+                <p>提交时间：{{ commit.commit.committer.date }}</p>
+                <a class="button" href="{{ commit.html_url }}" target="_blank">浏览</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

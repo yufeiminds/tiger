@@ -11,6 +11,7 @@ import jinja2
 import requests
 import click
 import datetime
+import markdown
 import pdfkit
 
 
@@ -27,6 +28,7 @@ class TigerReport(object):
 
         self._data = None
         self._env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
+        self._env.filters['markdown'] = markdown.markdown
 
     @property
     def meta(self):

@@ -2,3 +2,4 @@ requests
 click
 jinja2
 pdfkit
+markdown

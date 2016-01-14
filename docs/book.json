@@ -1,0 +1,13 @@
+{
+    "gitbook": "2.x.x",
+    "title": "Tiger",
+    "description": ":)",
+    "plugins": ["katex", "todo"],
+    "pluginsConfig": {
+        "fontSettings": {
+            "theme": "white",
+            "family": "sans",
+            "size": 3
+        }
+    }
+}

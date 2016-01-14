@@ -1,0 +1,73 @@
+/*
+ * Copyright 2016 Yufei Li
+ *
+ * Bison/Yacc File
+ */
+
+%{
+#include <iostream>
+#include <string>
+
+int yylex();
+
+int yyerror(const char *err_msg) {
+    std::cout << err_msg << std::endl;
+}
+%}
+
+/*
+ * Token Definition
+ */
+
+%union {
+    int ret;
+};
+
+%token STRING_CONSTANT INTEGER_CONSTANT NIL
+%token IF THEN ELSE WHILE DO FOR TO BREAK
+%token FUNCTION LET IN END
+%token ARRAY OF ID
+
+%type <ret> keyword_list keyword
+
+/*
+ * Tiger Syntax Grammar Debug
+ *
+ * Test Grammar
+ */
+%%
+
+keyword
+    : STRING_CONSTANT
+    | INTEGER_CONSTANT
+    | NIL
+    | IF
+    | THEN
+    | ELSE
+    | WHILE
+    | DO
+    | FOR
+    | TO
+    | BREAK
+    | FUNCTION
+    | LET
+    | IN
+    | END
+    | ARRAY
+    | OF
+    | ID
+    ;
+
+keyword_list
+    : keyword keyword_list;
+
+%%
+
+/*
+ * Driver function.
+ */
+
+int main(void) {
+    yyparse();
+    return 0;
+}
