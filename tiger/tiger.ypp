@@ -20,15 +20,17 @@ int yyerror(const char *err_msg) {
  */
 
 %union {
-    int ret;
+    int ival;
+    char * sval;
 };
 
 %token STRING_CONSTANT INTEGER_CONSTANT NIL
+%token ADD SUB MUL DIV OR AND EQ NEQ LT GT LT_EQ GT_EQ DOT ASSIGN
 %token IF THEN ELSE WHILE DO FOR TO BREAK
-%token FUNCTION LET IN END
-%token ARRAY OF ID
+%token FUNCTION LET VAR TYPE IN END ARRAY OF ID
+%token COMMA COLON SEMICOLON
 
-%type <ret> keyword_list keyword
+%type <ret> expr expr_seq expr_list field_list lvalue
 
 /*
  * Tiger Syntax Grammar Debug
@@ -37,29 +39,46 @@ int yyerror(const char *err_msg) {
  */
 %%
 
-keyword
+expr
     : STRING_CONSTANT
     | INTEGER_CONSTANT
     | NIL
-    | IF
-    | THEN
-    | ELSE
-    | WHILE
-    | DO
-    | FOR
-    | TO
+    | lvalue
+    | SUB expr
+    | expr binary_operator expr
+    | lvalue ASSIGN expr
+    | id LPAREN expr_list RPAREN
+    | LPAREN expr_seq RPAREN
+    | type_id LBRACE field_list RBRACE
+    | type_id LBRACK expr RBRACK OF expr
+    | IF expr THEN expr
+    | IF expr THEN expr ELSE expr
+    | WHILE expr DO expr
+    | FOR ID ASSIGN expr TO expr DO expr
     | BREAK
-    | FUNCTION
-    | LET
-    | IN
-    | END
-    | ARRAY
-    | OF
-    | ID
+    | LET declaration_list IN expr_seq END
     ;
 
-keyword_list
-    : keyword keyword_list;
+expr_seq
+    : expr
+    | expr_seq SEMICOLON expr
+    ;
+
+expr_list
+    : expr
+    | expr_list COMMA expr
+    ;
+
+field_list
+    : ID EQ expr
+    | field_list COMMA ID EQ expr
+    ;
+
+lvalue
+    : id
+    | lvalue DOT id
+    | lvalue LBRACK expr RBRACK
+    ;
 
 %%
 

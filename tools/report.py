@@ -13,6 +13,7 @@ import click
 import datetime
 import markdown
 import pdfkit
+import envelopes
 
 
 class TigerReport(object):
@@ -29,6 +30,7 @@ class TigerReport(object):
         self._data = None
         self._env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
         self._env.filters['markdown'] = markdown.markdown
+        self._env.globals['now'] = datetime.datetime.now
 
     @property
     def meta(self):
@@ -69,7 +71,8 @@ class TigerReport(object):
 @click.command()
 @click.option('-f', '--format', default='html', help=u'报告生成格式')
 @click.option('-o', '--output', default='build', help=u"报告生成目录")
-def build(format, output):
+@click.option('-e', '--email', default=[], multiple=True, help=u"报告发送对象")
+def build(format, output, email):
     t = TigerReport('yufeiminds', 'tiger', TigerReport.WEEKLY)
     html = t.html
     if not os.path.exists(output):
@@ -81,6 +84,25 @@ def build(format, output):
             fd.write(html.encode('utf8'))
     if format == 'pdf':
         pdfkit.from_string(html, fp + '.pdf')
+
+    if email:
+        envelope = envelopes.Envelope(
+            from_addr=(u'yufeiminds@163.com', u'Yufei Li'),
+            to_addr=email,
+            subject=u'毕业设计进度周报',
+            html_body=html,
+            text_body=None,
+            cc_addr=None,
+            bcc_addr=None,
+            headers=None,
+            charset='utf-8',
+        )
+        if format == 'pdf':
+            envelope.add_attachment(fp + '.pdf')
+        envelope.send('smtp.163.com',
+                      login=os.environ['EMAIL_163_USERNAME'],
+                      password=os.environ['EMAIL_163_PASSWORD'],
+                      tls=True)
 
 
 if __name__ == '__main__':

@@ -34,6 +34,11 @@
         <div class="entry-title">
             <h1>{{ repo.upper() }} 进度周报</h1>
             <p>创建者：{{ user }}</p>
+            <p>时间：{{ now().strftime("%F") }}</p>
+            <div>
+                <a class="button" target="_blank" href="http://blog.thxminds.com/tiger/">文档</a>
+                <a class="button" target="_blank" href="http://github.com/yufeiminds/tiger/">代码</a>
+            </div>
             <hr>
         </div>
         <div class="entry-content">

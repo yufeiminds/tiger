@@ -1,0 +1,106 @@
+/*
+ * Copyright 2016 Yufei Li
+ *
+ * Bison/Yacc File
+ */
+
+%{
+#include <iostream>
+#include <string>
+
+int yylex();
+
+int yyerror(const char *err_msg) {
+    std::cout << err_msg << std::endl;
+}
+%}
+
+/*
+ * Token Definition
+ */
+
+%union {
+    int ival;
+    char * sval;
+};
+
+%token STRING_CONSTANT INTEGER_CONSTANT NIL
+%token ADD SUB MUL DIV OR AND EQ NEQ LT GT LT_EQ GT_EQ DOT ASSIGN
+%token IF THEN ELSE WHILE DO FOR TO BREAK
+%token FUNCTION LET VAR TYPE IN END ARRAY OF ID
+%token COMMA COLON SEMICOLON
+%token LPAREN RPAREN LBRACK RBRACK LBRACE RBRACE
+%token INT STRING
+%type <ival> debug
+%start program
+
+/*
+ * Tiger Syntax Grammar Debug
+ *
+ * Test Grammar
+ */
+%%
+
+program
+    : /* Empty */
+    | program debug
+    ;
+
+debug
+    : STRING_CONSTANT
+    | INTEGER_CONSTANT
+    | NIL
+    | ADD
+    | SUB
+    | MUL
+    | DIV
+    | OR
+    | AND
+    | EQ
+    | NEQ
+    | LT
+    | GT
+    | LT_EQ
+    | GT_EQ
+    | DOT
+    | ASSIGN
+    | IF
+    | THEN
+    | ELSE
+    | WHILE
+    | DO
+    | FOR
+    | TO
+    | BREAK
+    | FUNCTION
+    | LET
+    | IN
+    | END
+    | ARRAY
+    | OF
+    | ID
+    | COMMA
+    | COLON
+    | SEMICOLON
+    | VAR
+    | TYPE
+    | LPAREN
+    | RPAREN
+    | LBRACK
+    | RBRACK
+    | LBRACE
+    | RBRACE
+    | INT
+    | STRING
+    ;
+
+%%
+
+/*
+ * Driver function.
+ */
+
+int main(void) {
+    yyparse();
+    return 0;
+}
