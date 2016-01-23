@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Introduction | Tiger</title>
+        <title>词法分析 | Tiger</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content=":)">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
         
         
@@ -15,25 +15,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
-    <link rel="stylesheet" href="gitbook/style.css">
+    <link rel="stylesheet" href="../gitbook/style.css">
     
         
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-katex/katex.min.css">
-        
-    
-        
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-katex/katex.min.css">
         
     
         
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
         
     
         
-        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
         
     
     
@@ -41,8 +41,10 @@
         
     
     
-    <link rel="next" href="./academic/lex.html" />
+    <link rel="next" href="../academic/grammar.html" />
     
+    
+    <link rel="prev" href="../index.html" />
     
 
         
@@ -50,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-chapter-title="Introduction" data-filepath="README.md" data-basepath="." data-revision="Sat Jan 23 2016 23:04:46 GMT+0800 (CST)">
+    <div class="book" data-level="1.1" data-chapter-title="词法分析" data-filepath="academic/lex.md" data-basepath=".." data-revision="Sat Jan 23 2016 23:04:46 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -65,10 +67,10 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
-                    <a href="./index.html">
+                    <a href="../index.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -86,10 +88,10 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.1" data-path="academic/lex.html">
+        <li class="chapter active" data-level="1.1" data-path="academic/lex.html">
             
                 
-                    <a href="./academic/lex.html">
+                    <a href="../academic/lex.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -104,7 +106,7 @@
         <li class="chapter " data-level="1.2" data-path="academic/grammar.html">
             
                 
-                    <a href="./academic/grammar.html">
+                    <a href="../academic/grammar.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -132,7 +134,7 @@
         <li class="chapter " data-level="2.1" data-path="engineering/flex.html">
             
                 
-                    <a href="./engineering/flex.html">
+                    <a href="../engineering/flex.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -147,7 +149,7 @@
         <li class="chapter " data-level="2.2" data-path="engineering/docs.html">
             
                 
-                    <a href="./engineering/docs.html">
+                    <a href="../engineering/docs.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -162,7 +164,7 @@
         <li class="chapter " data-level="2.3" data-path="engineering/report.html">
             
                 
-                    <a href="./engineering/report.html">
+                    <a href="../engineering/report.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -190,7 +192,7 @@
         <li class="chapter " data-level="3.1" data-path="appendix/tiger.html">
             
                 
-                    <a href="./appendix/tiger.html">
+                    <a href="../appendix/tiger.html">
                 
                         <i class="fa fa-check"></i>
                         
@@ -230,7 +232,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="./" >Tiger</a>
+        <a href="../" >Tiger</a>
     </h1>
 </div>
 
@@ -240,8 +242,12 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="tiger">Tiger</h1>
-<p>&#x864E;&#x4E66;&#x5927;&#x4F5C;&#x4E1A;&#xFF0C;&#x6BD5;&#x4E1A;&#x8BBE;&#x8BA1;</p>
+                        <h1 id="&#x8BCD;&#x6CD5;&#x5206;&#x6790;">&#x8BCD;&#x6CD5;&#x5206;&#x6790;</h1>
+<h2 id="&#x53C2;&#x8003;&#x6587;&#x732E;">&#x53C2;&#x8003;&#x6587;&#x732E;</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/6558200/" target="_blank">&#x79BB;&#x6563;&#x6570;&#x5B66;&#x53CA;&#x5176;&#x5E94;&#x7528;</a>&#xFF08;Discrete mathematics and its applications&#xFF09; (&#x7F8E;)Kenneth H. Rosen&#x8457; ; &#x8881;&#x5D07;&#x4E49;&#xFF0C;&#x5C48;&#x5A49;&#x73B2;&#xFF0C;&#x5F20;&#x6842;&#x82B8;&#x7B49;&#x8BD1;. &#x5317;&#x4EAC; : &#x673A;&#x68B0;&#x5DE5;&#x4E1A;&#x51FA;&#x7248;&#x793E;, 2011&#xFF0C;&#x8BA1;&#x7B97;&#x6A21;&#x578B; &#x4E00;&#x7AE0;</li>
+<li><a href="https://book.douban.com/subject/2154713/" target="_blank">&#x7CBE;&#x901A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;</a> &#xFF08;Mastering regular expressions&#xFF09;(&#x7F8E;)Jeffrey E.F.Friedl&#x8457; ; &#x4F59;&#x665F;&#x8BD1;. &#x7535;&#x5B50;&#x5DE5;&#x4E1A;&#x51FA;&#x7248;&#x793E;&#xFF0C;2007&#xFF0C;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x5339;&#x914D;&#x539F;&#x7406; &#x4E00;&#x7AE0;</li>
+</ul>
 
                     
                     </section>
@@ -252,29 +258,31 @@
         </div>
 
         
+        <a href="../index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./academic/lex.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 词法分析"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="../academic/grammar.html" class="navigation navigation-next " aria-label="Next page: 语法分析"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
 
         
-<script src="gitbook/app.js"></script>
+<script src="../gitbook/app.js"></script>
 
     
-    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
-    
-
-    
-    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
     
 
 <script>
