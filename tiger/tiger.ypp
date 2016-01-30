@@ -29,8 +29,10 @@ int yyerror(const char *err_msg) {
 %token IF THEN ELSE WHILE DO FOR TO BREAK
 %token FUNCTION LET VAR TYPE IN END ARRAY OF ID
 %token COMMA COLON SEMICOLON
+%token LPAREN RPAREN LBRACK RBRACK LBRACE RBRACE
+%token INT STRING
 
-%type <ret> expr expr_seq expr_list field_list lvalue
+%start program
 
 /*
  * Tiger Syntax Grammar Debug
@@ -39,29 +41,63 @@ int yyerror(const char *err_msg) {
  */
 %%
 
+program
+    : /* Empty */
+    | expr
+    ;
+
 expr
-    : STRING_CONSTANT
-    | INTEGER_CONSTANT
+    : INTEGER_CONSTANT
+    | STRING_CONSTANT
     | NIL
     | lvalue
-    | SUB expr
+    | SUB INTEGER_CONSTANT
     | expr binary_operator expr
     | lvalue ASSIGN expr
-    | id LPAREN expr_list RPAREN
-    | LPAREN expr_seq RPAREN
-    | type_id LBRACE field_list RBRACE
+    | id LPAREN expr_list_opt RPAREN
+    | LPAREN expr_seq_opt RPAREN
+    | type_id LBRACE field_list_opt RBRACE
     | type_id LBRACK expr RBRACK OF expr
     | IF expr THEN expr
     | IF expr THEN expr ELSE expr
     | WHILE expr DO expr
-    | FOR ID ASSIGN expr TO expr DO expr
+    | FOR id ASSIGN expr TO expr DO expr
     | BREAK
-    | LET declaration_list IN expr_seq END
+    | LET declaration_list IN expr_seq_opt END
     ;
 
-expr_seq
-    : expr
-    | expr_seq SEMICOLON expr
+lvalue
+    : id
+    | lvalue DOT id
+    | lvalue LBRACK expr RBRACK
+    ;
+
+id  : ID ;
+
+type_id
+    : STRING
+    | INT
+    | id
+    ;
+
+binary_operator
+    : ADD
+    | SUB
+    | MUL
+    | DIV
+    | EQ
+    | NEQ
+    | AND
+    | OR
+    | GT
+    | LT
+    | GT_EQ
+    | LT_EQ
+    ;
+
+expr_list_opt
+    : /* Empty */
+    | expr_list
     ;
 
 expr_list
@@ -69,15 +105,63 @@ expr_list
     | expr_list COMMA expr
     ;
 
-field_list
-    : ID EQ expr
-    | field_list COMMA ID EQ expr
+expr_seq_opt
+    : /* Empty */
+    | expr_seq
     ;
 
-lvalue
-    : id
-    | lvalue DOT id
-    | lvalue LBRACK expr RBRACK
+expr_seq
+    : expr
+    | expr_seq SEMICOLON expr
+    ;
+
+field_list_opt
+    : /* Empty */
+    | field_list
+    ;
+
+field_list
+    : id EQ expr
+    | field_list COMMA id EQ expr
+    ;
+
+declaration_list
+    : declaration
+    | declaration_list declaration
+    ;
+
+declaration
+    : type_declaration
+    | variable_declaration
+    ;
+
+type_declaration
+    : TYPE type_id EQ type
+    ;
+
+type
+    : type_id
+    | LBRACE type_fields_opt RBRACE
+    | ARRAY OF type_id
+    ;
+
+type_fields_opt
+    : /* Empty */
+    | type_fields
+    ;
+
+type_fields
+    : type_field
+    | type_fields COMMA type_field
+    ;
+
+type_field
+    : id COLON type_id
+    ;
+
+variable_declaration
+    : VAR id ASSIGN expr
+    | VAR id COLON type_id ASSIGN expr
     ;
 
 %%

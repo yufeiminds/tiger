@@ -1,0 +1,5 @@
+let
+    var b := a [10] of 0
+in
+    nil
+end

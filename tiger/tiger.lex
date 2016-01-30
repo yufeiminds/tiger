@@ -4,11 +4,13 @@
 
 %{
 #include "stdlib.h"
+#include "string.h"
 #include <iostream>
 #include <string>
-#include "debug.tab.hpp"
+#include "tiger.tab.hpp"
 
 int check_type();
+char *get_text();
 void echo_debug(void)
 {
     fwrite(yytext, yyleng, 1, yyout);
@@ -88,9 +90,9 @@ string          "\""[^"]*"\""
 <<EOF>>         { /* End of file */ }
 
 {id}            { return check_type();   }
-{string}        { std::cout << "String: "; ADJUST; return STRING_CONSTANT;      }
+{string}        { std::cout << "String: "; ADJUST; yylval.sval = get_text(); return STRING_CONSTANT;        }
 {integer}       { std::cout << "Integer: "; ADJUST; yylval.ival = atoi(yytext); return INTEGER_CONSTANT;    }
-.               { std::cout << "Others."; ECHO; std::cout << std::endl;     }
+.               { std::cout << "Lex Error. "; ECHO; std::cout << "Line No.: " << yylineno << std::endl;  }
 
 %%
 
@@ -109,4 +111,10 @@ int check_type() {
     }
     std::cout << "ID: " << yytext << std::endl;
     return ID;
+}
+
+char *get_text() {
+    char * s = (char *) malloc(yyleng + 1);
+    strncpy(s, yytext, yyleng);
+    return s;
 }
