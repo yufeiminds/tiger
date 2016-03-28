@@ -1,59 +1,75 @@
-/*
- * Copyright 2016 Yufei Li
- *
- * Bison/Yacc File
- */
-
 %{
-#include <iostream>
-#include <string>
+#include <stdio.h>
+#include "util.h"
+#include "errormsg.h"
 
-int yylex();
+int yylex(void); /* function prototype */
 
-int yyerror(const char *err_msg) {
-    std::cout << err_msg << std::endl;
-    exit(1);
+A_exp absyn_root;
+
+void yyerror(char *s)
+{
+ EM_error(EM_tokPos, "%s", s);
 }
 %}
 
-/*
- * Token Definition
- */
 
 %union {
-    int ival;
-    char * sval;
-};
+	int pos;
+	int ival;
+	string sval;
+	}
 
-%token STRING_CONSTANT INTEGER_CONSTANT NIL
-%token ADD SUB MUL DIV OR AND EQ NEQ LT GT LT_EQ GT_EQ DOT ASSIGN
-%token IF THEN ELSE WHILE DO FOR TO BREAK
-%token FUNCTION LET VAR TYPE IN END ARRAY OF ID
-%token COMMA COLON SEMICOLON
-%token LPAREN RPAREN LBRACK RBRACK LBRACE RBRACE
-%token INT STRING
+%token <sval> ID STRING
+%token <ival> INT
+
+%token 
+  COMMA COLON SEMICOLON LPAREN RPAREN LBRACK RBRACK 
+  LBRACE RBRACE DOT 
+  ADD SUB MUL DIV EQ NEQ LT LT_EQ GT GT_EQ
+  AND OR ASSIGN
+  ARRAY IF THEN ELSE WHILE FOR TO DO LET IN END OF 
+  BREAK NIL
+  FUNCTION VAR TYPE
+
+%nonassoc THEN DO TYPE FUNCTION ID
+%nonassoc ASSIGN LBRACK ELSE OF COMMA
+%left OR
+%left AND
+%nonassoc EQ NEQ LT_EQ LT GT GT_EQ
+%left ADD SUB
+%left MUL DIV
+%left USUB
 
 %start program
 
-/*
- * Tiger Syntax Grammar Debug
- *
- * Test Grammar
- */
 %%
 
-program
-    : /* Empty */
-    | expr
+program : main { absyn_root = $1; };
+
+main
+    : /* Empty */ { $$ = NULL; }
+    | expr  { $$ = $1; }
     ;
 
 expr
-    : INTEGER_CONSTANT
-    | STRING_CONSTANT
-    | NIL
-    | lvalue
-    | SUB expr
-    | expr binary_operator expr
+    : INT   { $$ = A_IntExp(EM_tokPos, $1); }
+    | STRING    { $$ = A_StringExp(EM_tokPos, $1); }
+    | NIL   { $$ = A_NilExp(EM_tokPos); }
+    | lvalue    { $$ =  }
+    | SUB expr %prec USUB   { $$ =  }
+    | expr ADD expr
+    | expr SUB expr
+    | expr MUL expr
+    | expr DIV expr
+    | expr EQ expr
+    | expr NEQ expr
+    | expr LT expr
+    | expr LT_EQ expr
+    | expr GT expr
+    | expr GT_EQ expr
+    | expr AND expr
+    | expr OR expr
     | lvalue ASSIGN expr
     | id LPAREN expr_list_opt RPAREN
     | LPAREN expr_seq_opt RPAREN
@@ -83,21 +99,6 @@ type_id
     : STRING
     | INT
     | ID
-    ;
-
-binary_operator
-    : ADD
-    | SUB
-    | MUL
-    | DIV
-    | EQ
-    | NEQ
-    | AND
-    | OR
-    | GT
-    | LT
-    | GT_EQ
-    | LT_EQ
     ;
 
 expr_list_opt
@@ -174,14 +175,3 @@ function_declaration
     : FUNCTION id LPAREN type_fields_opt RPAREN EQ expr
     | FUNCTION id LPAREN type_fields_opt RPAREN COLON type_id EQ expr
     ;
-
-%%
-
-/*
- * Driver function.
- */
-
-int main(void) {
-    yyparse();
-    return 0;
-}

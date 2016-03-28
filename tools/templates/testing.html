@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiger 测试报告</title>
+
+    <style type="text/css">
+        /* External CSS */
+        {% include "./print.css" %}
+
+        /* Custom CSS */
+        a.button {
+            border: 3px solid rgba(0,0,0,.07);
+            padding: 4px 20px;
+            margin-right: 20px;
+            border-radius: 20px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            color: #999;
+            text-decoration: none;
+        }
+
+        .entry-title {
+            text-align: center;
+        }
+
+        .commit {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .success {
+          background-color: #1abc9c;
+        }
+
+        .error {
+          background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" class="yue">
+        <h1>Test Status</h1>
+        <hr>
+        <div id="good">
+          <h2>Good - syntax analysing</h2>
+          <table>
+            <thead>
+              <th>
+                No.
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                Description
+              </th>
+            </thead>
+            <tbody>
+              {% for fpath, name, status in good %}
+              <tr>
+                <td>
+                  {{ loop.index }}
+                </td>
+                <td>
+                  {{ name }}
+                </td>
+                <td class="{%if status -%}success{%- else -%}error{% endif %}">
+                  {{ status }}
+                </td>
+                <td>
+                  <!-- TODO: Show comment at here -->
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div id="bad">
+          <h2>Bad - semantic analysing</h2>
+          <table>
+            <thead>
+              <th>
+                No.
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                Description
+              </th>
+            </thead>
+            <tbody>
+              {% for fpath, name, status in bad %}
+              <tr>
+                <td>
+                  {{ loop.index }}
+                </td>
+                <td>
+                  {{ name }}
+                </td>
+                <td class="{%if status -%}success{%- else -%}error{% endif %}">
+                  {{ status }}
+                </td>
+                <td>
+                  <!-- TODO: Show comment at here -->
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+</body>
+</html>

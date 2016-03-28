@@ -1,0 +1,5 @@
+let
+    var debug : int := 10
+in
+    debug
+end
