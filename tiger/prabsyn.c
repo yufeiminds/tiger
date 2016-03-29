@@ -18,7 +18,7 @@ static void pr_fieldList(FILE *out, A_fieldList v, int d);
 static void pr_expList(FILE *out, A_expList v, int d);
 static void pr_fundec(FILE *out, A_fundec v, int d);
 static void pr_fundecList(FILE *out, A_fundecList v, int d);
-static void pr_decList(FILE *out, A_decList v, int d);
+static void pr_decList(FILE *out_decList v, int d);
 static void pr_namety(FILE *out, A_namety v, int d);
 static void pr_nametyList(FILE *out, A_nametyList v, int d);
 static void pr_efield(FILE *out, A_efield v, int d);
