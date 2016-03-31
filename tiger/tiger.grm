@@ -18,6 +18,7 @@ void yyerror(char *s)
 	int pos;
 	int ival;
 	string sval;
+	A_exp exp
 	}
 
 %token <sval> ID STRING
@@ -31,6 +32,8 @@ void yyerror(char *s)
   ARRAY IF THEN ELSE WHILE FOR TO DO LET IN END OF 
   BREAK NIL
   FUNCTION VAR TYPE
+
+%type <exp> program main expr
 
 %nonassoc THEN DO TYPE FUNCTION ID
 %nonassoc ASSIGN LBRACK ELSE OF COMMA
@@ -56,26 +59,26 @@ expr
     : INT   { $$ = A_IntExp(EM_tokPos, $1); }
     | STRING    { $$ = A_StringExp(EM_tokPos, $1); }
     | NIL   { $$ = A_NilExp(EM_tokPos); }
-    | lvalue    { $$ =  }
-    | SUB expr %prec USUB   { $$ =  }
-    | expr ADD expr
-    | expr SUB expr
-    | expr MUL expr
-    | expr DIV expr
-    | expr EQ expr
-    | expr NEQ expr
-    | expr LT expr
-    | expr LT_EQ expr
-    | expr GT expr
-    | expr GT_EQ expr
-    | expr AND expr
-    | expr OR expr
-    | lvalue ASSIGN expr
-    | id LPAREN expr_list_opt RPAREN
-    | LPAREN expr_seq_opt RPAREN
-    | id LBRACE field_list_opt RBRACE
-    | array OF expr
-    | IF expr THEN expr
+    | lvalue    { $$ = A_VarExp(EM_tokPos, $1); }
+    | SUB expr %prec USUB       { $$ = A_OpExp(EM_tokPos, A_minusOp, A_IntExp(EM_tokPos, 0), $2); }
+    | expr ADD expr     { $$ = A_OpExp(EM_tokPos, A_plusOp, $1, $3); }
+    | expr SUB expr     { $$ = A_OpExp(EM_tokPos, A_minusOp, $1, $3); }
+    | expr MUL expr     { $$ = A_OpExp(EM_tokPos, A_timesOp, $1, $3); }
+    | expr DIV expr     { $$ = A_OpExp(EM_tokPos, A_divideOp, $1, $3); }
+    | expr EQ expr      { $$ = A_OpExp(EM_tokPos, A_eqOp, $1, $3); }
+    | expr NEQ expr     { $$ = A_OpExp(EM_tokPos, A_neqOp, $1, $3); }
+    | expr LT expr      { $$ = A_OpExp(EM_tokPos, A_ltOp, $1, $3); }
+    | expr LT_EQ expr   { $$ = A_OpExp(EM_tokPos, A_leOp, $1, $3); }
+    | expr GT expr      { $$ = A_OpExp(EM_tokPos, A_gtOp, $1, $3); }
+    | expr GT_EQ expr   { $$ = A_OpExp(EM_tokPos, A_geOp, $1, $3); }
+    | expr AND expr     { $$ = A_IfExp(EM_tokPos, $1, $3, A_IntExp(EM_tokPos, 0)); }
+    | expr OR expr      { $$ = A_IfExp(EM_tokPos, $1, A_IntExp(EM_tokPos, 1), $3); }
+    | lvalue ASSIGN expr    { $$ = A_AssignExp(EM_tokPos, $1, $3); }
+    | id LPAREN expr_list_opt RPAREN    { $$ = A_CallExp(EM_tokPos, $1, $3); }
+    | LPAREN expr_seq_opt RPAREN    { $$ = A_SeqExp(EM_tokPos, $2); }
+    | id LBRACE field_list_opt RBRACE   { $$ = A_RecordExp(EM_tokPos, $1, $3); }
+    | id LBRACK expr RBRACK OF expr     { $$ = A_ArrayExp(EM_tokPos, ); }
+    | IF expr THEN expr { $$ = A_IfExp(EM_tokPos, $2, $4, ); }
     | IF expr THEN expr ELSE expr
     | WHILE expr DO expr
     | FOR id ASSIGN expr TO expr DO expr
@@ -86,12 +89,9 @@ expr
 lvalue
     : id
     | lvalue DOT id
-    | array
+    | id LBRACK expr RBRACK
     ;
 
-array
-    : lvalue LBRACK expr RBRACK
-    ;
 
 id  : ID ;
 
