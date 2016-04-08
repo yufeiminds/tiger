@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include "util.h"
+#include "absyn.h"
 #include "errormsg.h"
 
 int yylex(void); /* function prototype */
@@ -18,23 +19,47 @@ void yyerror(char *s)
 	int pos;
 	int ival;
 	string sval;
-	A_exp exp
+  S_symbol symbol;
+  A_var var;
+	A_exp exp;
+  A_dec dec;
+  A_ty ty;
+  A_field field;
+  A_fieldList fieldList;
+  A_expList expList;
+  A_fundec fundec;
+  A_fundecList fundecList;
+  A_decList decList;
+  A_namety namety;
+  A_nametyList nametyList;
+  A_efield efield;
+  A_efieldList efieldList;
 	}
 
 %token <sval> ID STRING
 %token <ival> INT
 
-%token 
-  COMMA COLON SEMICOLON LPAREN RPAREN LBRACK RBRACK 
-  LBRACE RBRACE DOT 
+%token
+  COMMA COLON SEMICOLON LPAREN RPAREN LBRACK RBRACK
+  LBRACE RBRACE DOT
   ADD SUB MUL DIV EQ NEQ LT LT_EQ GT GT_EQ
   AND OR ASSIGN
-  ARRAY IF THEN ELSE WHILE FOR TO DO LET IN END OF 
+  ARRAY IF THEN ELSE WHILE FOR TO DO LET IN END OF
   BREAK NIL
   FUNCTION VAR TYPE
 
 %type <exp> program main expr
+%type <var> lvalue
+%type <symbol> id
+%type <expList> expr_list expr_list_opt expr_seq expr_seq_opt
+%type <field> type_field
+%type <fieldList> type_fields type_fields_opt
+%type <decList> declaration_list
+%type <dec> declaration function_declaration type_declaration variable_declaration
+%type <ty> type
+%type <efieldList> field_list field_list_opt
 
+%nonassoc LOW // 消除左值的歧义
 %nonassoc THEN DO TYPE FUNCTION ID
 %nonassoc ASSIGN LBRACK ELSE OF COMMA
 %left OR
@@ -77,101 +102,95 @@ expr
     | id LPAREN expr_list_opt RPAREN    { $$ = A_CallExp(EM_tokPos, $1, $3); }
     | LPAREN expr_seq_opt RPAREN    { $$ = A_SeqExp(EM_tokPos, $2); }
     | id LBRACE field_list_opt RBRACE   { $$ = A_RecordExp(EM_tokPos, $1, $3); }
-    | id LBRACK expr RBRACK OF expr     { $$ = A_ArrayExp(EM_tokPos, ); }
-    | IF expr THEN expr { $$ = A_IfExp(EM_tokPos, $2, $4, ); }
-    | IF expr THEN expr ELSE expr
-    | WHILE expr DO expr
-    | FOR id ASSIGN expr TO expr DO expr
-    | BREAK
-    | LET declaration_list IN expr_seq_opt END
+    | id LBRACK expr RBRACK OF expr     { $$ = A_ArrayExp(EM_tokPos, $1, $3, $6); }
+    | IF expr THEN expr { $$ = A_IfExp(EM_tokPos, $2, $4, NULL); }
+    | IF expr THEN expr ELSE expr { $$ = A_IfExp(EM_tokPos, $2, $4, $6); }
+    | WHILE expr DO expr { $$ = A_WhileExp(EM_tokPos, $2, $4); }
+    | FOR id ASSIGN expr TO expr DO expr { $$ = A_ForExp(EM_tokPos, $2, $4, $6, $8); }
+    | BREAK { $$ = A_BreakExp(EM_tokPos); }
+    | LET declaration_list IN expr_seq_opt END { $$ = A_LetExp(EM_tokPos, $2, A_SeqExp(EM_tokPos, $4)); }
     ;
 
 lvalue
-    : id
-    | lvalue DOT id
-    | id LBRACK expr RBRACK
+    : id %prec LOW { $$ = A_SimpleVar(EM_tokPos, $1); }
+    | lvalue DOT id { $$ = A_FieldVar(EM_tokPos, $1, $3); }
+    | id LBRACK expr RBRACK { $$ = A_SubscriptVar(EM_tokPos, A_SimpleVar(EM_tokPos, $1), $3); }
+    | lvalue LBRACK expr RBRACK { $$ = A_SubscriptVar(EM_tokPos, $1, $3); }
     ;
 
-
-id  : ID ;
-
-type_id
-    : STRING
-    | INT
-    | ID
-    ;
+id  : ID  { $$ = S_Symbol($1); }
 
 expr_list_opt
-    : /* Empty */
-    | expr_list
+    : /* Empty */ { $$ = NULL; }
+    | expr_list { $$ = $1; }
     ;
 
 expr_list
-    : expr
-    | expr_list COMMA expr
+    : expr { $$ = A_ExpList($1, NULL); }
+    | expr_list COMMA expr { $$ = A_ExpList($3, $1); }
     ;
 
 expr_seq_opt
-    : /* Empty */
-    | expr_seq
+    : /* Empty */ { $$ = NULL; }
+    | expr_seq { $$ = $1; }
     ;
 
 expr_seq
-    : expr
-    | expr_seq SEMICOLON expr
+    : expr { $$ = A_ExpList($1, NULL); }
+    | expr_seq SEMICOLON expr { $$ = A_ExpList($3, $1); }
     ;
 
 field_list_opt
-    : /* Empty */
-    | field_list
+    : /* Empty */ { $$ = NULL; }
+    | field_list { $$ = $1; }
     ;
 
 field_list
-    : id EQ expr
-    | field_list COMMA id EQ expr
+    : id EQ expr { $$ = A_EfieldList(A_Efield($1, $3), NULL); }
+    | field_list COMMA id EQ expr { $$ = A_EfieldList(A_Efield($3, $5), $1); }
     ;
 
 declaration_list
-    : declaration
-    | declaration_list declaration
+    : /* Empty */ { $$ = NULL; }
+    | declaration_list declaration { $$ = A_DecList($2, $1); }
     ;
 
 declaration
-    : type_declaration
-    | variable_declaration
-    | function_declaration
+    : type_declaration { $$ = $1; }
+    | variable_declaration { $$ = $1; }
+    | function_declaration { $$ = $1; }
     ;
 
 type_declaration
-    : TYPE id EQ type
+    : TYPE id EQ type { $$ = A_TypeDec(EM_tokPos, A_NametyList(A_Namety($2, $4), NULL)); }
     ;
 
 type
-    : id
-    | LBRACE type_fields_opt RBRACE
-    | ARRAY OF id
+    : id { $$ = A_NameTy(EM_tokPos, $1); }
+    | LBRACE type_fields_opt RBRACE { $$ = A_RecordTy(EM_tokPos, $2); }
+    | ARRAY OF id { $$ = A_ArrayTy(EM_tokPos, $3); }
     ;
 
 type_fields_opt
-    : /* Empty */
-    | type_fields
+    : /* Empty */ { $$ = NULL; }
+    | type_fields { $$ = $1; }
     ;
 
 type_fields
-    : type_field
-    | type_fields COMMA type_field
+    : type_field { $$ = A_FieldList($1, NULL); }
+    | type_fields COMMA type_field { $$ = A_FieldList($3, $1); }
     ;
 
 type_field
-    : id COLON id
+    : id COLON id { $$ = A_Field(EM_tokPos, $1, $3); }
     ;
 
 variable_declaration
-    : VAR id ASSIGN expr
-    | VAR id COLON id ASSIGN expr
+    : VAR id ASSIGN expr { $$ = A_VarDec(EM_tokPos, $2, NULL, $4); }
+    | VAR id COLON id ASSIGN expr { $$ = A_VarDec(EM_tokPos, $2, $4, $6); }
     ;
 
 function_declaration
-    : FUNCTION id LPAREN type_fields_opt RPAREN EQ expr
-    | FUNCTION id LPAREN type_fields_opt RPAREN COLON type_id EQ expr
+    : FUNCTION id LPAREN type_fields_opt RPAREN EQ expr { $$ = A_FunctionDec(EM_tokPos, A_FundecList(A_Fundec(EM_tokPos, $2, $4, NULL, $7), NULL)); }
+    | FUNCTION id LPAREN type_fields_opt RPAREN COLON id EQ expr { $$ = A_FunctionDec(EM_tokPos, A_FundecList(A_Fundec(EM_tokPos, $2, $4, $7, $9), NULL)); }
     ;
